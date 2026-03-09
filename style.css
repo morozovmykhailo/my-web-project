@@ -1,0 +1,9 @@
+:root {
+  --primary-color: #2563eb;
+  --text-color: #b8c22d;
+  --bg-color: #ffffff;
+}
+
+h1, h2 {
+  color: var(--primary-color);
+}
