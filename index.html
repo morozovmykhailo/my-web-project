@@ -13,6 +13,7 @@
 
     <header>
         <h1>Михайло</h1>
+        <button id="theme-toggle" class="theme-btn">Змінити тему</button>
         <nav>
             <ul>
                 <li><a href="#about">Про мене</a></li>
@@ -52,11 +53,17 @@
                     <p>Програма для роботи з даними на C.</p>
                 </article>
             </div>
+
+            <div class="additional-projects">
+                <h3>Додаткові проєкти (динамічні дані)</h3>
+                <ul id="projects-list"></ul>
+            </div>
         </section>
         
         <section id="contacts">
             <h2>Контакти</h2>
             <p>Email: <a href="mailto:morozov.mykhailo1624@vu.cdu.edu.ua">morozov.mykhailo1624@vu.cdu.edu.ua</a></p>
+            <button id="open-modal" class="modal-trigger-btn">Написати мені</button>
         </section>
     </main>
 
@@ -64,5 +71,16 @@
         <p>© 2026 Михайло</p>
     </footer>
 
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <button id="close-modal" class="modal-close-btn">Закрити</button>
+            <form id="contact-form">
+                <input type="text" id="user-name" placeholder="Ваше ім'я">
+                <button type="submit">Надіслати</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>

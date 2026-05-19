@@ -84,7 +84,6 @@ nav a {
   font-weight: bold;
 }
 
-/* WCAG */
 /* Видимий фокус при навігації клавіатурою (Tab) */
 a:focus,
 button:focus {
@@ -132,4 +131,114 @@ footer {
   text-align: center;
   padding: 30px 1rem;
   border-top: 1px solid #e2e8f0;
+}
+
+/* стилі для темної теми  */
+.dark-theme {
+  background-color: #111;
+  color: #fff;
+  --primary-color: #60a5fa;
+}
+
+/* стилі для картки проєкту в темній темі */
+.dark-theme .project-card {
+  background-color: #1e293b;
+  border-color: #334155;
+}
+
+/* стилі кнопки зміни теми */
+.theme-btn {
+  padding: 8px 16px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* оформлення динамічного списку проєктів */
+.additional-projects {
+  margin-top: 40px;
+}
+
+#projects-list {
+  padding-left: 20px;
+  line-height: 2;
+}
+
+/* стилі для кнопок виклику модального вікна */
+.modal-trigger-btn {
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* базові стилі та оверлей для модального вікна */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  padding-top: 100px;
+}
+
+/* стан коли модальне вікно відкрите */
+.modal.is-open {
+  display: block;
+}
+
+/* контентна область всередині модального вікна */
+.modal-content {
+  background-color: #ffffff;
+  color: #000000;
+  margin: 0 auto;
+  padding: 24px;
+  border-radius: 8px;
+  max-width: 400px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* оформлення елементів форми та кнопки закриття */
+.modal-close-btn {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+#contact-form {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#contact-form input {
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+#contact-form button[type="submit"] {
+  padding: 10px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
 }
