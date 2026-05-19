@@ -1,5 +1,3 @@
-console.log("JS connected!");
-
 const projects = [
   { id: 1, title: "Сайт-візитка", tech: "HTML/CSS" },
   { id: 2, title: "Проста гра", tech: "С" },
@@ -40,6 +38,9 @@ if (searchInput) {
   });
 }
 
+/* Логіка публікацій з API */
+let allPosts = []; // Змінна для зберігання постів
+
 async function loadPosts() {
   const loading = document.querySelector('#loading');
   const postsContainer = document.querySelector('#posts-container');
@@ -53,21 +54,13 @@ async function loadPosts() {
       throw new Error('Server error');
     }
 
-    // Очікуємо перетворення відповіді у формат JSON
     const data = await response.json();
 
-    // Беремо перші 5 постів перетворюємо на HTML і об'єднуємо
-    const html = data.slice(0, 5)
-      .map(post => `
-        <div class="post">
-          <h3>${post.title}</h3>
-          <p>${post.body}</p>
-        </div>
-      `)
-      .join('');
+    // Зберігаємо перші 10 постів
+    allPosts = data.slice(0, 10);
 
-    // Рендеринг в DOM
-    postsContainer.innerHTML = html;
+    // Рендеримо завантажені пости
+    renderPosts(allPosts);
 
     loading.style.display = 'none';
 
@@ -78,8 +71,42 @@ async function loadPosts() {
   }
 }
 
+// Функція відображення постів
+function renderPosts(list) {
+  const postsContainer = document.querySelector('#posts-container');
+  if (!postsContainer) return;
+
+  const html = list
+    .map(post => `
+      <div class="post">
+        <h3>${post.title}</h3>
+        <p>${post.body}</p>
+      </div>
+    `)
+    .join('');
+
+  postsContainer.innerHTML = html;
+}
+
 loadPosts();
 
+// Пошук (фільтрація) постів
+const searchPostsInput = document.querySelector('#search-posts');
+
+if (searchPostsInput) {
+  searchPostsInput.addEventListener('input', () => {
+    const value = searchPostsInput.value.toLowerCase().trim();
+
+    const filtered = allPosts.filter(post =>
+      post.title.toLowerCase().includes(value)
+    );
+
+    renderPosts(filtered);
+  });
+}
+
+
+/* === 3. UI ЕЛЕМЕНТИ (ЗБЕРЕЖЕНО) === */
 
 // Перемикач теми
 const themeBtn = document.querySelector('#theme-toggle');
