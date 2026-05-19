@@ -1,25 +1,56 @@
-console.log("JS connected!");
-const myProjects = [
+// Масив проєктів
+const projects = [
   { id: 1, title: "Сайт-візитка", tech: "HTML/CSS" },
-  { id: 2, title: "Магазин", tech: "JavaScript" }
+  { id: 2, title: "Проста гра", tech: "С" },
+  { id: 3, title: "Портфоліо", tech: "HTML/CSS/JS" },
+  { id: 4, title: "Магазин", tech: "JavaScript" },
+  { id: 5, title: "Скрипт автоматизації", tech: "Python" },
+  { id: 6, title: "Програма обробки даних", tech: "C" }
 ];
 
-console.log(myProjects[0]);
-console.log(myProjects[0].title);
+// Отримання контейнера для проєктів та поля пошуку
+const container = document.querySelector('#projects-container');
+const searchInput = document.querySelector('#search-input');
 
-// пошук елемента списку на сторінці
-const list = document.querySelector('#projects-list');
+// Функція генерації HTML через шаблонні рядки
+function createProjectCard(project) {
+  return `
+    <article class="project-card">
+      <h3>${project.title}</h3>
+      <p>Технології: ${project.tech}</p>
+    </article>
+  `;
+}
 
-// рендеринг елементів масиву в dom дерево
-if (list) {
-  myProjects.forEach(project => {
-    const li = document.createElement('li');
-    li.textContent = project.title + " (" + project.tech + ")";
-    list.appendChild(li);
+// Функція рендерингу списку через MAP
+function renderProjects(list) {
+  if (!container) return;
+
+  const html = list
+    .map(project => createProjectCard(project))
+    .join('');
+
+  container.innerHTML = html;
+}
+
+// Первинний виклик для відображення всіх карток при завантаженні
+renderProjects(projects);
+
+// 4. Реалізація пошуку за допомогою фільтрації
+if (searchInput) {
+  searchInput.addEventListener('input', () => {
+    const value = searchInput.value.toLowerCase().trim();
+
+    const filtered = projects.filter(project =>
+      project.title.toLowerCase().includes(value) || 
+      project.tech.toLowerCase().includes(value)
+    );
+
+    renderProjects(filtered);
   });
 }
 
-// перемикач теми
+// Перемикач теми
 const themeBtn = document.querySelector('#theme-toggle');
 const bodyElement = document.body;
 
@@ -29,12 +60,11 @@ if (themeBtn) {
   });
 }
 
-// модальне вікно та форма
+// Модальне вікно
 const openBtn = document.querySelector('#open-modal');
 const closeBtn = document.querySelector('#close-modal');
 const modal = document.querySelector('#modal');
 
-// відкриття та закриття модального вікна по кліку на кнопки
 if (openBtn && closeBtn && modal) {
   openBtn.addEventListener('click', () => {
     modal.classList.add('is-open');
@@ -45,20 +75,19 @@ if (openBtn && closeBtn && modal) {
   });
 }
 
-// закриття модального вікна по клавіші escape
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && modal) {
     modal.classList.remove('is-open');
   }
 });
 
-// валідація форми та відміна перезавантаження сторінки
+// Валідація форми
 const form = document.querySelector('#contact-form');
 const nameInput = document.querySelector('#user-name');
 
 if (form && nameInput) {
   form.addEventListener('submit', (event) => {
-    event.preventDefault(); // об'єкт події event скасовує дефолтну поведінку відправки форми браузером
+    event.preventDefault();
 
     if (nameInput.value.trim().length < 2) {
       alert("Ім'я має містити щонайменше 2 символи");

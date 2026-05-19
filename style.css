@@ -2,6 +2,8 @@
   --primary-color: #2563eb;
   --text-color: #000000;
   --bg-color: #ffffff;
+  --input-bg: #ffffff;
+  --input-border: #cbd5e1;
 }
 
 html {
@@ -12,19 +14,18 @@ html {
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
-  font-family: 'Inter', sans-serif; /* Основний текст */
+  font-family: 'Inter', sans-serif;
   font-size: 1rem;
   line-height: 1.6;
   margin: 0;
 }
 
 h1, h2, h3 {
-  font-family: 'Poppins', sans-serif; /* Шрифт заголовків */
+  font-family: 'Poppins', sans-serif;
   line-height: 1.2;
   color: var(--primary-color);
 }
 
-/* Реалізація адаптивного заголовка через */
 h1 {
   font-size: clamp(1.8rem, 4vw, 3rem);
   margin-top: 0;
@@ -44,10 +45,9 @@ h3 {
   box-sizing: border-box;
 }
 
-/* Контроль довжини рядків */
 main, header, footer {
-  max-width: 70ch; /* Обмеження ширини для комфорту читання */
-  margin: 0 auto;  /* Центрування на великих екранах */
+  max-width: 70ch;
+  margin: 0 auto;
   padding: 0 1rem;
 }
 
@@ -84,14 +84,30 @@ nav a {
   font-weight: bold;
 }
 
-/* Видимий фокус при навігації клавіатурою (Tab) */
 a:focus,
-button:focus {
-  outline: 3px solid #000;
+button:focus,
+input:focus {
+  outline: 3px solid var(--primary-color);
   outline-offset: 2px;
 }
 
-/* Адаптація для великих екранів від 768px */
+/* Стилізація поля пошуку */
+.search-box {
+  margin-bottom: 20px;
+}
+
+#search-input {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 1rem;
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+/* Адаптація для великих екранів */
 @media (min-width: 768px) {
   header {
     display: flex;
@@ -133,20 +149,20 @@ footer {
   border-top: 1px solid #e2e8f0;
 }
 
-/* стилі для темної теми  */
+/* Стилі для темної теми */
 .dark-theme {
-  background-color: #111;
-  color: #fff;
+  --bg-color: #111111;
+  --text-color: #ffffff;
   --primary-color: #60a5fa;
+  --input-bg: #1e293b;
+  --input-border: #334155;
 }
 
-/* стилі для картки проєкту в темній темі */
 .dark-theme .project-card {
   background-color: #1e293b;
   border-color: #334155;
 }
 
-/* стилі кнопки зміни теми */
 .theme-btn {
   padding: 8px 16px;
   background-color: var(--primary-color);
@@ -157,17 +173,7 @@ footer {
   font-weight: bold;
 }
 
-/* оформлення динамічного списку проєктів */
-.additional-projects {
-  margin-top: 40px;
-}
-
-#projects-list {
-  padding-left: 20px;
-  line-height: 2;
-}
-
-/* стилі для кнопок виклику модального вікна */
+/* Стилі для кнопок виклику модального вікна */
 .modal-trigger-btn {
   padding: 10px 20px;
   background-color: var(--primary-color);
@@ -179,7 +185,7 @@ footer {
   font-weight: bold;
 }
 
-/* базові стилі та оверлей для модального вікна */
+/* Базові стилі та оверлей для модального вікна */
 .modal {
   display: none;
   position: fixed;
@@ -192,12 +198,10 @@ footer {
   padding-top: 100px;
 }
 
-/* стан коли модальне вікно відкрите */
 .modal.is-open {
   display: block;
 }
 
-/* контентна область всередині модального вікна */
 .modal-content {
   background-color: #ffffff;
   color: #000000;
@@ -208,7 +212,6 @@ footer {
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
-/* оформлення елементів форми та кнопки закриття */
 .modal-close-btn {
   background-color: #ef4444;
   color: white;
