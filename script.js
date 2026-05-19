@@ -1,4 +1,5 @@
-// Масив проєктів
+console.log("JS connected!");
+
 const projects = [
   { id: 1, title: "Сайт-візитка", tech: "HTML/CSS" },
   { id: 2, title: "Проста гра", tech: "С" },
@@ -8,11 +9,9 @@ const projects = [
   { id: 6, title: "Програма обробки даних", tech: "C" }
 ];
 
-// Отримання контейнера для проєктів та поля пошуку
-const container = document.querySelector('#projects-container');
+const projectsContainer = document.querySelector('#projects-container');
 const searchInput = document.querySelector('#search-input');
 
-// Функція генерації HTML через шаблонні рядки
 function createProjectCard(project) {
   return `
     <article class="project-card">
@@ -22,33 +21,65 @@ function createProjectCard(project) {
   `;
 }
 
-// Функція рендерингу списку через MAP
 function renderProjects(list) {
-  if (!container) return;
-
-  const html = list
-    .map(project => createProjectCard(project))
-    .join('');
-
-  container.innerHTML = html;
+  if (!projectsContainer) return;
+  const html = list.map(project => createProjectCard(project)).join('');
+  projectsContainer.innerHTML = html;
 }
 
-// Первинний виклик для відображення всіх карток при завантаженні
 renderProjects(projects);
 
-// 4. Реалізація пошуку за допомогою фільтрації
 if (searchInput) {
   searchInput.addEventListener('input', () => {
     const value = searchInput.value.toLowerCase().trim();
-
     const filtered = projects.filter(project =>
       project.title.toLowerCase().includes(value) || 
       project.tech.toLowerCase().includes(value)
     );
-
     renderProjects(filtered);
   });
 }
+
+async function loadPosts() {
+  const loading = document.querySelector('#loading');
+  const postsContainer = document.querySelector('#posts-container');
+
+  if (!loading || !postsContainer) return;
+
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+
+    if (!response.ok) {
+      throw new Error('Server error');
+    }
+
+    // Очікуємо перетворення відповіді у формат JSON
+    const data = await response.json();
+
+    // Беремо перші 5 постів перетворюємо на HTML і об'єднуємо
+    const html = data.slice(0, 5)
+      .map(post => `
+        <div class="post">
+          <h3>${post.title}</h3>
+          <p>${post.body}</p>
+        </div>
+      `)
+      .join('');
+
+    // Рендеринг в DOM
+    postsContainer.innerHTML = html;
+
+    loading.style.display = 'none';
+
+  } catch (error) {
+    console.error(error);
+    loading.textContent = 'Помилка завантаження даних';
+    loading.style.color = 'red';
+  }
+}
+
+loadPosts();
+
 
 // Перемикач теми
 const themeBtn = document.querySelector('#theme-toggle');
