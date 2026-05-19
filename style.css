@@ -183,14 +183,16 @@ footer {
 }
 
 .dark-theme .project-card,
-.dark-theme .post {
+.dark-theme .post,
+.dark-theme .task-item {
   background-color: #1e293b;
   border-color: #334155;
 }
 
-/* Темна тема для полів пошуку */
+/* Темна тема для полів пошуку та введення завдань */
 .dark-theme #search-input,
-.dark-theme #search-posts {
+.dark-theme #search-posts,
+.dark-theme #task-input {
   background-color: var(--input-bg);
   border-color: var(--input-border);
 }
@@ -275,4 +277,71 @@ footer {
   border-radius: 4px;
   cursor: pointer;
   font-weight: bold;
+}
+
+.task-inputs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#task-input {
+  flex: 1;
+  padding: 12px 16px;
+  font-size: 1rem;
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+.task-btn {
+  padding: 12px 24px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+#task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 12px 20px;
+  border-radius: 8px;
+}
+
+.task-item span {
+  word-break: break-word;
+}
+
+.delete-task-btn {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.delete-task-btn:hover {
+  background-color: #dc2626;
 }

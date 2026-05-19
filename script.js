@@ -38,7 +38,6 @@ if (searchInput) {
   });
 }
 
-/* Логіка публікацій з API */
 let allPosts = []; // Змінна для зберігання постів
 
 async function loadPosts() {
@@ -106,7 +105,79 @@ if (searchPostsInput) {
 }
 
 
-/* === 3. UI ЕЛЕМЕНТИ (ЗБЕРЕЖЕНО) === */
+
+let tasks = [];
+
+// Функції збереження та завантаження
+function saveTasks() {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function loadTasks() {
+    const data = localStorage.getItem('tasks');
+    if (data) {
+        tasks = JSON.parse(data);
+    }
+}
+
+const input = document.querySelector('#task-input');
+const addBtn = document.querySelector('#add-task');
+
+if (addBtn && input) {
+    addBtn.addEventListener('click', () => {
+        const value = input.value.trim();
+
+        if (value === '') return;
+
+        tasks.push({ text: value });
+        saveTasks();
+        renderTasks();
+
+        input.value = '';
+    });
+
+    input.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            addBtn.click();
+        }
+    });
+}
+
+// Рендеринг списку
+const list = document.querySelector('#task-list');
+
+function renderTasks() {
+    if (!list) return;
+    list.innerHTML = '';
+
+    tasks.forEach((task, index) => {
+        const li = document.createElement('li');
+        li.className = 'task-item'; // Клас для стилізації
+
+        const textSpan = document.createElement('span');
+        textSpan.textContent = task.text;
+        li.appendChild(textSpan);
+
+        const btn = document.createElement('button');
+        btn.textContent = '✕';
+        btn.className = 'delete-task-btn'; // Клас для стилізації кнопки видалення
+
+        btn.addEventListener('click', () => {
+            tasks.splice(index, 1);
+            saveTasks();
+            renderTasks();
+        });
+
+        li.appendChild(btn);
+        list.appendChild(li);
+    });
+}
+
+loadTasks();
+renderTasks();
+
+
+/* UI ЕЛЕМЕНТИ */
 
 // Перемикач теми
 const themeBtn = document.querySelector('#theme-toggle');
